@@ -1,0 +1,55 @@
+= KoeppenGeiger
+
+This gem adds a climate classification parameter to a location object based upon observed or predicted climate data.
+
+Read more about the Köppen-Geiger climate classification system at:
+http://en.wikipedia.org/wiki/K%C3%B6ppen_climate_classification
+
+== Installation
+
+  gem install koeppen_geiger
+
+To install the gem, add this to your config/environment.rb:
+  config.gem 'koeppen_geiger'
+	
+== Post Installation
+
+  script/generate koeppen_geiger
+  rake koeppen_geiger:configure
+  sudo rake koeppen_geiger:extract_gis_data
+  rake koeppen_geiger:import_gis_data
+  rake db:migrate
+
+== Requirements
+
+Rails 2.3.x
+
+Install PostgreSQL
+http://www.postgresql.org
+
+Install Postgis
+http://www.postgis.org
+
+Create a spatially-enabled database
+http://www.postgis.org/documentation/manual-1.5/ch02.html#id2630392
+
+== Usage
+
+  class Location < ActiveRecord::Base
+    has_climate_classification
+    has_climate_classification :lat_column_name => "latitude", :lng_column_name => "longitude"
+  end
+	
+  location = Location.find(1)
+  location.classify
+	
+  location.classified(:observed,1901)
+  => "Am"
+  
+  location.classified("a2",2015).to_words
+  => "Equatorial monsoon"
+
+== Data
+
+The underlying data has been taken from:
+http://koeppen-geiger.vu-wien.ac.at/shifts.htm
