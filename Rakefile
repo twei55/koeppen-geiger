@@ -8,6 +8,7 @@ Echoe.new('koeppen_geiger', '0.0.2') do |p|
   p.url            = "http://github.com/tpunkt/koeppen_geiger"
   p.author         = "Tobias Weiss"
   p.email          = "tobias.weiss@gmail.com"
-  p.ignore_pattern = ["tmp/*", "script/*"]
+  p.ignore_pattern = FileList[".gitignore"]
   p.development_dependencies = []
+  p.test_pattern    = []
 end
